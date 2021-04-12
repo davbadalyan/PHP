@@ -19,6 +19,41 @@ OOP-ն paradigm-է որը ունի մի քանի հիմնաքար․ "Հիմնա
 Ծրագրավորման լեզուները իրենք իրենցով մի մեծ աբստրակցիա են․ Օրինակ + օպերատորը օգտագործելիս, չենք "խորանում" թե այդ ամենը
 ինչ մեխանիզմով է կատարվում համակարգչում, ուղղակի օգտվում ենք արդեն սահմանված "գումարի" ֆունկցիայից
 
+Ամբողջ դժվար ու կրկվնող լոգիկան սահմանված է այստեղ
+```
+CoffeeMachine.php
+
+class CoffeeMachine{
+
+    protected .....
+
+    .
+    .
+
+    public function makeCoffee()
+    {
+        $coffee = "" .........
+
+        .......
+    }
+
+    .
+    .
+    .
+}
+```
+
+Կլիենտի (Օրինակ Controller-ում) կոդում չկա բարդ լոգիկա
+Իդեալական դեպքում անգլերեն իմացող որևէ մեկը պետք է հասկանա կոդը, այդ դեպքում կասենք որ կոդը գրված է բարձր
+մակարդակի աբստրակցիայով 
+```
+client.php
+
+$machine = new CoffeeMachine();
+
+$coffee = $machine->makeCoffee();
+```
+
 # 2. Encapsulation
 
 # 3. Polymorphism
@@ -27,3 +62,15 @@ OOP-ն paradigm-է որը ունի մի քանի հիմնաքար․ "Հիմնա
 
 # HOMEWORK
 
+Սահմանել ```Product``` Կլասը, որը ունի պակ ատրիբուտ ```protected $price```, որի համար կա getter և setter մեթոդներ
+
+Նաև պետք է լինի ՝՝՝public init($country)՝՝՝ մեթոդը, որը ըստ տված արգումենտի սահմանում է Օբյեկտի ($this) ```public $shippting``` եվ ```public $currency```
+ատրիբուտները նախորոք սահմանված զանգվածի հիման վրա 
+
+```
+    protected $data = [
+        "Russia" => ["shipping" => false, "currency" => "RUB"],
+        "USA" => ["shipping" => true, "currency" => "$"],
+        "Armenia" => ["shipping" => true, "currency" => "AMD"],
+    ]
+```

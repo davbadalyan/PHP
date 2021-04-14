@@ -83,7 +83,8 @@ class Product{
     }
 
     public function init($country) {
-        var_dump($this->data[$country]);
+        $this->shipping = $this->data[$country]["shipping"];
+        $this->currency = $this->data[$country]["currency"];
     }
 }
 
@@ -92,3 +93,5 @@ $watch = new Product();
 $watch->setPrice("$300");
 // $watch->getPrice();
 $watch->init("USA");
+
+var_dump($watch->shipping);

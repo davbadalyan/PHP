@@ -4,14 +4,24 @@ class DB
 {
     public static $conn;
 
-    public function test()
+    public function __construct()
     {
-        $conn = static::getConnection();
+        static::getConnection();
     }
 
-    public static function getConnection()
+    /**
+     * @return PDO
+     */
+    public function instanceConnection(): PDO
     {
+        return static::$conn;
+    }
 
+    /**
+     * @return PDO
+     */
+    public static function getConnection(): PDO
+    {
         if(static::$conn)
         {
             return static::$conn;
@@ -28,26 +38,10 @@ class DB
             // echo "Connection failed: " . $e->getMessage();
         }
     }
-
-
-    
-
-    public function count()
-    {
-        
-    }
 }
 
+// DB::getConnection();
 
-// DB::$title;
-
-$db1 = new DB();
-$db2 = new DB();
-
-// echo $db->title;
-
-$db1->test("jjhj");
-$db2->test("hhjhj");
-
-
-$db1->count(); //2
+// $db = new DB();
+// $db->instanceConnection();
+// PDO

@@ -4,20 +4,14 @@ class Auth
 {
     private $cookieKey = "AuthCookie";
 
-    private $conn;
+    private $userService;
 
     public function __construct()
     {
-        try {
-            $conn = new PDO("mysql:host=localhost;dbname=oop", "root", "root");
-            // set the PDO error mode to exception
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            // echo "Connected successfully";
-
-            $this->conn = $conn;
-        } catch (PDOException $e) {
-            // echo "Connection failed: " . $e->getMessage();
-        }
+        if(false)
+            $this->userService = new MysqliUser();
+        else
+            $this->userService = new User();
     }
 
     private function setCookie($user_id, $time = 180)
@@ -46,9 +40,10 @@ class Auth
     {
         $id = $_COOKIE[$this->cookieKey];
 
-        $usersQuery = "SELECT * FROM users WHERE id = '{$id}' LIMIT 1";
-        $stmt = $this->conn->query($usersQuery);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        // $usersQuery = "SELECT * FROM users WHERE id = '{$id}' LIMIT 1";
+        // $stmt = $this->conn->query($usersQuery);
+        // $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $user = $this->userService->getUserById($id);
 
         return $user;
     }
@@ -77,28 +72,7 @@ class Auth
 
     private function getUser($login, $password)
     {
-        $usersQuery = "SELECT * FROM users WHERE login = '{$login}' LIMIT 1";
-        $stmt = $this->conn->query($usersQuery);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if (empty($user))
-            return false;
-
-        if ($user["login"] !== $login)
-            return "Invalid data";
-
-        if ($user["password"] !== $password)
-            return "Invalid data";
-
-        return $user["id"];
-
-        // $id = 1;
-        // $loginFromDB = "Admin";
-        // $passwordFromDB = "password";
-        // if ($login == $loginFromDB && $password == $passwordFromDB) {
-        //     return $id;
-        // }
-        // return false;
+        return $this->userService->getUserId($login, $password);
     }
 
     public function logout()

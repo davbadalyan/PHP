@@ -36,16 +36,9 @@ class Auth
             $this->redirect($path);
     }
 
-    public function user()
+    public function user($id)
     {
-        $id = $_COOKIE[$this->cookieKey];
-
-        // $usersQuery = "SELECT * FROM users WHERE id = '{$id}' LIMIT 1";
-        // $stmt = $this->conn->query($usersQuery);
-        // $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        $user = $this->userService->getUserById($id);
-
-        return $user;
+        return $this->userService->getUserById($id);
     }
 
     public function login($login, $password)

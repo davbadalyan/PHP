@@ -2,11 +2,9 @@
 
 interface ConnectsToUser
 {
-
     public function getUserId(string $login, string $password): int;
+    public function getUserById(string $id): int;
 }
-
-
 
 class User extends DB implements ConnectsToUser
 {
@@ -29,6 +27,20 @@ class User extends DB implements ConnectsToUser
 
         if ($user["password"] !== $password)
             return "Invalid data";
+
+        return $user["id"];
+    }
+
+    /**
+     * @param srting $id
+     * @return int
+     */
+    public function getUserById($id): int
+    {
+        $id = $_COOKIE[$this->cookieKey];
+        $usersQuery = "SELECT * FROM users WHERE id = '{$id}' LIMIT 1";
+        $stmt = $this->conn->query($usersQuery);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         return $user["id"];
     }
